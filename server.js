@@ -9,7 +9,7 @@ var mongoose = require('mongoose');
 
 mongoose.connect('mongodb://localhost:27017/mean');
 
-var hello = require('./svr/routes/hello.js');
+var todos = require('./svr/routes/todos.js');
 
 app.use(compression());
 
@@ -19,7 +19,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 
 app.use(bodyParser.json());
 
-app.use('/meanapi/hello', hello);
+app.use('/meanapi/todo', todos);
 
 
 /// app runs in port

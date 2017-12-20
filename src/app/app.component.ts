@@ -9,26 +9,42 @@ import { Observable } from 'rxjs/Rx';
 })
 
 export class AppComponent implements OnInit {
-  title: string;
+  todos: Array<any>;
+  todo: String='';
 
   constructor(private http: Http) {
 
   }
 
   ngOnInit() {
-    this.getHello();
+    this.getAllTodos();
   }
 
-  getHello() {
+  saveTodo(){
+    let self=this;
+    if (self.todo && self.todo.trim() !=''){
+      let result = this.http.post(`/meanapi/todo`, { 'title': self.todo})
+        .map((res: Response) => res.json())
+        .catch((error: any) => Observable.throw(error.json().error || 'Server error'));
+      result.subscribe((x) => {
+        if (x) {
+          self.todo='';
+          self.getAllTodos();
+        }
+      }, (err) => {
+        console.log('error while Posting to API')
+      })
+    }
+  }
+
+  getAllTodos() {
     let self = this;
-    let result = this.http.get('/meanapi/hello')
+    let result = this.http.get('/meanapi/todo')
       .map((res: Response) => res.json())
       .catch((error: any) => Observable.throw(error.json().error || 'Server error'));
     result.subscribe((x) => {
-      if (x && x.text) {
-        self.title = x.text;
-      }else{
-        self.title = 'Hello from Local, Insert a record into mongo collection';
+      if (x && x.length>0) {
+        self.todos = x;
       }
     }, (err) => {
       console.log('error while fetching from API')

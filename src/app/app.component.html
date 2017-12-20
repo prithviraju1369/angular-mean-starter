@@ -1,6 +1,11 @@
 <!--The content below is only a placeholder and can be replaced.-->
 <div style="text-align:center">
   <h1>
-    {{ title }}
+    Angular 2 MEAN Starter App
   </h1>
+  <input placeholder="Write Something and click Enter" [(ngModel)]="todo">
+  <button (click)="saveTodo()">Submit</button>
+  <div *ngFor="let todo of todos">
+    {{todo.text}}
+  </div>
 </div>
