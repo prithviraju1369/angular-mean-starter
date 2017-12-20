@@ -8,9 +8,6 @@ Run `node server.js` for the mean app to run its server. Run mongod process prio
 
 Run `npm run local` in another Command Prompt (CMD) for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
 
-## Note
- Don't forget to run mongod process (mongodb to be installed).Add a record in mongo database name ('mean') with collection name ('samples') and property ('text')
-
 Example: `db.samples.insert({text:'test mongo'})`
 
 ## Build Prod
